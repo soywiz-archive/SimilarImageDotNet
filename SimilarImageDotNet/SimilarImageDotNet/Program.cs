@@ -25,13 +25,13 @@ namespace SimilarImageDotNet
 		/// <param name="FileName1"></param>
 		/// <param name="FileName2"></param>
 		[Command("-C", "--compare")]
-		[Description("Compares two images")]
+		[Description("Compares two images and get a coefficient of similarity (0.0=Completely distinct, 1.0=Equal)")]
 		[Example("-C file1.png file2.png")]
 		virtual protected void CompareImages(string FileName1, string FileName2)
 		{
 			var Hash1 = SimilarImage.GetCompressedImageHashAsString(new Bitmap(Image.FromFile(FileName1)), Levels);
 			var Hash2 = SimilarImage.GetCompressedImageHashAsString(new Bitmap(Image.FromFile(FileName2)), Levels);
-			Console.WriteLine("{0:0.000000}", SimilarImage.CompareHashes(Hash1, Hash2));
+			Console.Write("{0:0.000000}", SimilarImage.CompareHashes(Hash1, Hash2));
 		}
 
 		/// <summary>
@@ -42,7 +42,7 @@ namespace SimilarImageDotNet
 		[Example("-H file.png")]
 		virtual protected void DisplayHash(string FileName)
 		{
-			Console.Write(SimilarImage.GetCompressedImageHashAsString(new Bitmap(Image.FromFile(FileName))), Levels);
+			Console.Write("{0}", SimilarImage.GetCompressedImageHashAsString(new Bitmap(Image.FromFile(FileName)), Levels));
 		}
 
 		/// <summary>
