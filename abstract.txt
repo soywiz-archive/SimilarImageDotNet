@@ -1,0 +1,93 @@
+From: http://www.cs.cmu.edu/~hcwong/Pdfs/icip02.ps
+
+H. Chi Wong, Marshall Bern, and David Goldberg
+
+Xerox Palo Alto Research Center
+3333 Coyote Hill Rd., Palo Alto, CA 94304
+
+ABSTRACT
+
+We describe algorithm for cumputing an image signature,
+suitable for first-stage screening for duplicate images. Our
+signature relies on relative brightness of image regions, and
+is generally applicable to photographs, text documents, and
+line art. We give experimental results on the sensitivity and
+robustness of signatures for actual image collections, and also
+results on the robustness of signature under transformations
+such as resizing, rescanning, and compression.
+
+1. BACKGROUND AND MOTIVATION
+
+Massive image databases are becoming increasingly common.
+Examples include document image databases such as
+declassified government documents [8], and photo archives
+such as the New York Times archive. Duplicate removal offers
+space and bandwidth savings, and more user-friendly
+search results. Despite some effort to cull duplicates, the image
+search service of Google [4] often retrieves a number
+of duplicate and near-duplicate images. Duplicate detection
+also finds application in copyright protection and authentication.
+
+We believe that duplicate detection is most effectively
+solved in two distinct stages. A fast first stage reduces images
+to small signatures, with the property that signatures
+of two different versions of the same image hve small vector
+distance relative to the typical distance between signatures
+of distinct images. A slow second stage then makes
+a detailed comparison of candidate duplicates identified in
+the first stage. Detailed comparison of document images can
+identify changes as small as moving a decimal point [16].
+
+In this paper we give a fast and simple algorithm for the
+first stage. Our image signature encodes the relative brightness
+of different regions of the image; it can be applied quite
+generally to text documents images, linear art (such as cartoons),
+and continuous-tone images. Although there are a number
+of image signatures that applies to such a wide class of images.
+The main limitation of our signature is that it is not designed
+to handle large amounts of cropping or rotation. This
+design chice is appropiate for document image databases
+and Web search, but not for object recognition or for detecting
+copyright violations.
+
+2. PREVIOUS WORK
+
+Image signatures have already been used to address three different,
+but closely related, problems: similarity search, authentication,
+and duplicate detection. The three problems have
+slightly different characteristics that affect the design of the
+signature. Signatures for similarity search [10] (for example,
+color histograms) must preserve similaritm not just identity,
+and hence do not necessarily spread out non-duplicates
+very effectively. Signatures for authentication [1, 11, 13, 15]
+must be more sensitive -- but can be much slower -- than signatures
+for the first stage of duplicate detection.
+
+Nevertheless, the techniques developed for search and
+authentication can be harnessed for duplicate detection. Our
+work adapts a method by O'Gorman and Rabinovich [11]
+for computing a signature for ID card photo and computes
+a vector of 8 bits for each point in the grid; roughly
+speaking, each bit records hether a neighborhood of that
+point is darker or lighter than a neighborhood of its 8 diagonal
+or orthogonal neighbors. In the usage scenario, the image
+signature computed from the photo is compared with a
+reference signature written on the ID card and digitally signed
+with public-key cryptography.
+
+Another technique worth considering lets the image content
+dictate the neighborhoods used in the signature [1, 14].
+Schmid and Mohr [14] use a corner-point detector to define
+"interesting points" in the image. The signature then includes
+a statistical abstract of the neighborhood of each interesting
+point. compared to grid-based methods such as ours, this
+approach has the advantage that it can handle large amounts
+of cropping, and if the statistics at each interesting point are
+rotation invariante, it can also handle arbitrary amounts of rotation.
+On the other hand, it seems to take several hundred
+interesting points to obtain a reliable signature, and this approach
+is likely to break down entirely for text documents or
+line art images, which may contain thousand of interesting
+points with very similar statistics.
+
+Also available in the literature are specialized isgnature
