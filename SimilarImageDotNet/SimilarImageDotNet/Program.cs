@@ -37,6 +37,19 @@ namespace SimilarImageDotNet
 		/// <summary>
 		/// 
 		/// </summary>
+		/// <param name="Hash1"></param>
+		/// <param name="Hash2"></param>
+		[Command("-CH", "--compare-hash")]
+		[Description("Compares two images and get a coefficient of similarity (0.0=Completely distinct, 1.0=Equal)")]
+		[Example("-CH HASH1 HASH2")]
+		virtual protected void CompareHashes(string Hash1, string Hash2)
+		{
+			Console.Write("{0:0.000000}", SimilarImage.CompareHashes(Hash1, Hash2));
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
 		[Command("-H", "--hash")]
 		[Description("Generates a hash")]
 		[Example("-H file.png")]
